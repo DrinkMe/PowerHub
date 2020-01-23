@@ -121,6 +121,16 @@ def nodebug(msg):
 def index():
     return redirect('/hub')
 
+@app.route('/commands')
+@requires_auth
+def commands():
+    context = {
+        "SSL": args.SSL_KEY is not None,
+        "AUTH": args.AUTH,
+        "VERSION": __version__,
+    }
+    return render_template("commands.html",**context)
+
 
 @app.route('/hub')
 @requires_auth

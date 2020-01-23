@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block commands_active %}active{% endblock %}
+{% block commands_selected %}selected{% endblock %}
+{% block content %}
+<p>
+<h2>Useful commands
+    <sup>
+        <a href="#"
+           title="What's this?"
+           data-toggle="popover"
+           data-trigger="focus"
+           data-content="This lists useful commands that can be pasted into powershell or cmd">
+           <span data-feather="help-circle"></span>
+        </a>
+    </sup>
+</h2>
+<p>Paste the following commands:</p>
+<div class="code_div" contenteditable='true'><code id='dlcradle'>{{ dl_str }}</code></div>
+<hr/>
+<div class="container">
+
+<h3>Find interesting file content</h3>
+<p>Find passwords</p><code>
+findstr /I /S /N /P "pass" *.*
+</code>
+
+<h3>Find interesting information</h3>
+<p>Check if SMB signing is active</p>
+<code>Get-SmbConnection | select * | where-Object {$_.Signed -like "True"}</code>
+</p>
+<p>Check for unquoted service paths</p>
+<code>wmic service get name,displayname,pathname,startmode |findstr /i "auto" |findstr /i /v "c:\windows\\" |findstr /i /v """</code>
+<h3>Tools</h3>
+<p>Built-in ADExplorer</p>
+<code>rundll32 dsquery,OpenQueryWindow</code>
+<div>
+<p>Check for UNC Paths</p>
+<code>ls HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\</code>
+    <p>Vulnerable if</p>
+    <code>Windows 7: {}</code><br>
+    <code>Windows 10: RequireMutualAuthentication=0</code>
+</div>
+{% endblock %}
