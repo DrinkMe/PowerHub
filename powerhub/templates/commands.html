@@ -2,7 +2,9 @@
 {% block commands_active %}active{% endblock %}
 {% block commands_selected %}selected{% endblock %}
 {% block content %}
+<link href="../static/css/dropdown.css" rel="stylesheet">
 <p>
+
 <h2>Useful commands
     <sup>
         <a href="#"
@@ -20,9 +22,12 @@
 <div class="container">
 
 <h3>Find interesting file content</h3>
+<!--<button type="button" class="collapsible">Click to open</button> -->
+<!-- <div class="content">-->
 <p>Find passwords</p><code>
 findstr /I /S /N /P "pass" *.*
 </code>
+<!-- </div> -->
 
 <h3>Find interesting information</h3>
 <p>Check if SMB signing is active</p>
@@ -40,4 +45,10 @@ findstr /I /S /N /P "pass" *.*
     <code>Windows 7: {}</code><br>
     <code>Windows 10: RequireMutualAuthentication=0</code>
 </div>
+<div>
+    <p>Check if AlwaysInstallElevated is used</p>
+    <code>reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated</code>
+    <p>If an output of 0x1 is shown, the target is exploitable with a malicious .msi application (msfvenom)</p>
+</div>
+<script src="../static/js/dropdown.js">
 {% endblock %}
